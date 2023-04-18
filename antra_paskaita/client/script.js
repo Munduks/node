@@ -1,3 +1,4 @@
+//istraukti duomenis ir ataizduoti
 fetch("http://localhost:3000/")
     .then((response)=>response.json())
     .then((response)=>{
@@ -20,6 +21,13 @@ nameButton.addEventListener("click", ()=>{
 
     // POST
     // reikia siusti objekta 
+    //pridetinauja produkta/duomeni i serveri
+    //fetch eina pirma url arba papildomi parametrai
+    //palidomi parametrai tai parametru objektas kuris nusako esybes apie mus kreipimasi
+    //esybes:method, header, body
+    //method- kreipimosi metodas(put, get post delate, )
+    // headers - objektas{..} gali buti "Content-Type":"application/json". nurodo kad siunciami duomenys yra JSON formato 
+    //body- musu siunciami duomenys, reikia prideti JSON.stringify(data), tam kad serveris suprastu siunciamus duomenis. butnai turi buti JSON formato arba JS objektas pvz:{name:"Raimonda"}
     fetch("http://localhost:3000/", {
         method:"POST",
         headers:{
@@ -28,7 +36,12 @@ nameButton.addEventListener("click", ()=>{
         body:JSON.stringify({name}),
     })
     .then(() => {
-        location.reload();;
+       
+        location.reload();; 
+        //then - kvietimas ivykdytas. ivykdo .then dali 
+        //.then (response)- response dalistai kas grizta is serverio is re.send()
+
+        //location.reload-perkrauti puslapi
     });
     
    
