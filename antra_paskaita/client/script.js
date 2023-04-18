@@ -37,7 +37,7 @@ nameButton.addEventListener("click", ()=>{
     })
     .then(() => {
        
-        location.reload();; 
+        location.reload();
         //then - kvietimas ivykdytas. ivykdo .then dali 
         //.then (response)- response dalistai kas grizta is serverio is re.send()
 
