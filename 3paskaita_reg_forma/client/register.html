@@ -5,43 +5,98 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            text-align: center;
+            min-width: 100vh;
+            background-color: bisque;
+            padding: 10px;
+        }
+          form{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px;
+           align-items: center;
+           justify-content: center;
+        }
+        .inputGroup {
+            width: 450px;
+            display: flex;
+            flex-direction:row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        label{
+            font-weight: bolder;
+        }
+        input{
+            padding: 4px;
+            margin-bottom: 10px;
+            width: 250px;
+            outline: none;
+        }
+        input,
+      button,
+      label {
+        
+        margin-right: 20px;
+        cursor: pointer;
+      }
+    
+      button{
+        margin-top: 10px;
+        padding: 7px 10px;
+      }
+    </style>
 </head>
 <body>
     <h2>Registracija naujiems klientams</h2>
     <form action="">
+        <div class="inputGroup"> 
         <label for="password">Slaptažodis:*</label>
-        <input type="password" id="password" name="password">
-        <br>
+        <input type="password"  id="password"  name="password">
+        </div>
+        <div class="inputGroup">
         <label for="password2">Pakartoti slaptažodis:*</label>
-        <input type="password2" id="password2" name="password2">
-        <br>
+        <input type="password2" class="desingInput" id="password2"  name="password2">
+        </div>
+        <div class="inputGroup">
         <label for="email">El. paštas:*</label>
-        <input type="email" name="email" id="email">
-        <br>
+        <input type="email"   name="email" id="email">
+        </div>
+        <div class="inputGroup">
         <label for="name">Vardas:*</label>
         <input type="text" id="name" name="name">
-        <br>
+        </div>
+        <div class="inputGroup">
         <label for="surname">Pavardė:*</label>
         <input type="text" id="surname" name="surname">
-        <br>
-        <label for="adress">Adresas:*</label>
-        <input type="adress" id="adress" name="adress">
-        <br>
+        </div>
+        <div class="inputGroup">
+        <label for="address">Adresas:*</label>
+        <input type="address" id="address" name="address">
+        </div>
+        <div class="inputGroup">
         <label for="number">Pašto kodas:*</label>
-        <input type="text" id="number" name="number">
-        <br>
+        <input type="postCode" id="postCode" name="postCode">
+        </div>
+        <div class="inputGroup">
         <label for="city">Miestas:*</label>
         <input type="text" id="city" name="city">
-        <br>
+        </div>
+        <div class="inputGroup">
         <label for="phone">Telefonas:*</label>
         <input type="phone" id="phone" name="phone" value="+370">
-        <br>
+        </div>
+        <div class="inputGroup">
         <label for="checkbox">Aš sutinku su paslaugų teikimo sąlygomis</label>
         <input type="checkbox" id="checkbox" >
-        <br>
-        <input type="submit" value="Registruotis">
+        </div>
+        <button type="submit" class="btn">Registruotis</button>
     </form>
-    <ul id="dataForm"></ul> 
 
     <script src="script.js"></script>
 </body>
