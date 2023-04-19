@@ -10,4 +10,3 @@ fetch("http://localhost:3000/users")
             userInfo.append(li);
         });
     });
-  
