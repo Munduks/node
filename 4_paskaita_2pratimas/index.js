@@ -45,7 +45,7 @@ app.get("/stock", (req, res)=>{
   });
     res.send(stocks);
 });
-//6
+//6 Papildomas: Sukurkite dinaminį GET route, kuris pagal kainos intervalą grąžins prekes, kurių kaina yra tarp nurodytų ribų (įskaitant jas). Parametrai turėtų būti perduodami URL kaip minPrice ir maxPrice.(du parametrai reikalingi)
 app.get("/products/:minPrice/:maxPrice", (req, res) => {
   const minPrice = Number(req.params.minPrice);
   const maxPrice = Number(req.params.maxPrice);
@@ -55,7 +55,7 @@ app.get("/products/:minPrice/:maxPrice", (req, res) => {
   res.send(filteredProducts);
 });
 
-// 7
+//  7. Papildomas: Sukurkite POST route, kuris leis pridėti naują prekę prie duomenų sąrašo. Nauja prekė turėtų turėti id, name, category, price ir stock laukus. Užtikrinkite, kad naujoji prekė neturėtų to paties id kaip jau esančios prekės.
 app.post("/products", (req, res) => {
   const newProduct = req.body;
 
