@@ -25,7 +25,8 @@ app.get("/cars/:model", (req, res) => {
 //3.Sukurkite dinaminį GET route, kuris priims vartotojo id ir pagal jį grąžins atitinkamą vartotojo objektą. Hint: url parametrai visada stringai, o čia id - skaičius, tad reikės konvertuoti.
 app.get("/clients/:id", (req, res) => {
     // 1 === "1"
-    const id = req.params.id;
+    //number(num)=> sutrumpinta versija   num
+    const id = req.params.id; //visada stringas
    const foundClient = data.find((client) => client.id === +id);
       
    res.send(foundClient);
@@ -33,6 +34,7 @@ app.get("/clients/:id", (req, res) => {
 
 //4 Sukurkite GET route, kuris grąžins visus el. paštus (grąžinamas formatas: ["anb@abc.com", "abc@abc.com", "abc@acb.com]).
 app.get("/emails", (reg, res)=>{
+  //map is vienos strukturos i kita strukura
     const emails=data.map((client)=>client.email);
     res.send(emails);
 });

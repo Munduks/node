@@ -16,7 +16,7 @@ app.get("/", (req, res)=>{
 app.get("/categories/:model", (req, res) => {
     const model = req.params.model;
     const filteredCategory = data.filter(
-      (client) => client.category.toLowerCase() === model.toLowerCase());
+      (products) => products.category.toLowerCase() === model.toLowerCase());
     res.send(filteredCategory);
   });
 
@@ -24,23 +24,50 @@ app.get("/categories/:model", (req, res) => {
 app.get("/products/:id", (req, res) => {
     // 1 === "1"
       const id = req.params.id;
-   const foundProduct = data.find((client) => client.id === +id);
+   const foundProduct = data.find((products) => products.id === +id);
    res.send(foundProduct);
   });
 
 //   4.Sukurkite GET route, kuris grąžins visų prekių pavadinimus (grąžinamas formatas: ["iPhone 13", "Samsung Galaxy S22", "Dell XPS 15", "MacBook Pro", "Sony WH-1000XM4", "Bose QuietComfort 35 II"]).
 app.get("/names", (reg, res)=>{
-    const names=data.map((client)=>client.name);
+    const names=data.map((products)=>products.name);
     res.send(names);
 });
 
 // 5.Sukurkite GET route, į kurį pasikreipus, grąžins visų prekių, kurių kiekis sandėlyje yra mažesnis už nurodytą kiekį, pavadinimus ir likug (formatas: [{"name": "Samsung Galaxy S22", "stock": 5}, {"name": "Dell XPS 15", "stock": 3}]).
-app.get("/females", (req, res)=>{
-    const filterFemales=data.filter((client)=>client.gender==="Female");
-    const femalesFullNames=filterFemales.map(
-     (female)=>`${female.first_name} ${female.las_name}`   
-    );
-    res.send(femalesFullNames);
+app.get("/stock", (req, res)=>{
+    const filteredProducts=data.filter((products)=>products.stock<11);
+    const stocks=filteredProducts.map((stock)=>{
+    return{
+      name:stock.name,
+      stock:stock.stock,
+    };   
+  });
+    res.send(stocks);
 });
+//6
+app.get("/products/:minPrice/:maxPrice", (req, res) => {
+  const minPrice = Number(req.params.minPrice);
+  const maxPrice = Number(req.params.maxPrice);
+  const filteredProducts = data.filter(
+    (product) => product.price >= minPrice && product.price <= maxPrice
+  );
+  res.send(filteredProducts);
+});
+
+// 7
+app.post("/products", (req, res) => {
+  const newProduct = req.body;
+
+  const isIdExist = data.some((product) => product.id === newProduct.id);
+
+  if (isIdExist) {
+    res.send("Product with this ID already exists.");
+  } else {
+    data.push(newProduct);
+    res.send(req.body);
+  }
+});
+
 
 app.listen(port, ()=>console.log(`server on port ${port}...`));
