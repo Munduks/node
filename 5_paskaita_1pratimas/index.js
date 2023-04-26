@@ -6,42 +6,30 @@ app.use(express.json());
 app.use(cors());
 const port=3000; //porto () skaicius
 
-const carts=[
-    {
-        "id": 1,
-        "name": "sūris",
-        "price": 1.5,
-        "quantity": 2
-    },
-    {
-        "id": 2,
-        "name": "pienas",
-        "price": 1.9,
-        "quantity": 19
-    },
-    {
-        "id": 3,
-        "name": "miltai",
-        "price": 2,
-        "quantity": 12
-    }
-];
+
+//const- negalima priskirti naujos reiksmes
+const cart=[];
 
 
 app.get("/cart", (req, res)=>{
-    res.send(carts)
+    res.send(cart)
 });
 
 app.post("/cart", (req, res)=>{
-    const cart =req.body;
-    carts.push(cart);
-    res.send(cart);
+    const item =req.body;
+    item.id=cart.length + 1;//pridedamas dinaminis id pagal krepselio ilgi. ilgis +1
+    cart.push(item);
+    //status- grazina http statusa kuris nurodo response busena
+    res.status(201).send(item);
 });
 
-app.get("/cart/item/:id",(req,res)=>{
-    const id = (req.params.id);
-    const foundItem = data.find((carts) => carts.id === +id);
-    res.send(foundItem); 
+app.get("/cart/:id",(req,res)=>{
+    const item= cart.find((item)=>item.id=== +req.params.id);
+    if(!item){
+        res.status(404).send("item  not found");
+    }else{
+        res.send(item);
+    } 
 })
 
 app.listen(port, ()=>console.log(`server on port ${port}...`));
