@@ -18,51 +18,49 @@ app.get('/todos', (req, res) => {
 // {id, title, done}
 app.post('/todos', (req, res) => {
   const todo = req.body;
-  const newTodo = { id: todos.length + 1, ...todo }; // pridedamas id prie siunciamo objekto
-  todos.push(newTodo); // pridedam i masyva
-  res.send(newTodo); // isiunciamas response
+  const newTodo = { id: todos.length + 1, ...todo }; // pridedamas id prie siunčiamo objekto
+  todos.push(newTodo); // pridedama į masyvą
+  res.send(newTodo); // išsiunčiamas response
 });
 
 app.get('/todos/:id', (req, res) => {
   const id = +req.params.id;
-  const foundTodo = todos.find((todo) => todo.id === id);
+  const foundTodo = todos.find((todo) => todo.id === id); // randa {...}, jei ne undefined
   if (foundTodo) {
     // jeigu randa
     res.send(foundTodo);
   } else {
-    // jeigu neranda-404 not found
-    // res.status()- grazina statusa
-    res.status(404).send({ message: 'To do not found' }); // grazina statusa
+    // jeigu neranda - 404 not found
+    // res.status() - grąžina statusą
+    res.status(404).send({ message: 'Todo not found' }); // grazina statusa
   }
 });
-
 app.delete('/todos/:id', (req, res) => {
   const id = +req.params.id;
-  const foundIndex = todos.findIndex((todo) => todo.id === id); // randa  0-begalybes , neranda -1
+  const foundIndex = todos.findIndex((todo) => todo.id === id); // randa 0-begalybės, neranda -1
   if (foundIndex !== -1) {
     // jeigu randa
-    const delatingTodo = todos.find((todo) => todo.id === id);
+    const deletingTodo = todos.find((todo) => todo.id === id);
     todos.splice(foundIndex, 1);
-    res.send(delatingTodo); // grazinam elementa kuri trinam
+    res.send(deletingTodo); // grąžinam elementą kurį trinam
   } else {
     // jeigu neranda
     res.status(404).send({ message: 'Todo not found' });
   }
 });
 
-app.put('/todos/id', (req, res) => {
+app.put('/todos/:id', (req, res) => {
   const id = +req.params.id;
   const foundIndex = todos.findIndex((todo) => todo.id === id);
   if (foundIndex !== -1) {
-    const todo = req.body; // naujai siunciamas todo
-    const updatingTodo = { id, ...todo }; // senas id +naujas todo
-    todos.splice(foundIndex, 1, updatingTodo); // keiciamas atnaujintas todo
+    const todo = req.body; // naujai siunčiamas todo
+    const updatingTodo = { id, ...todo }; // senas id + naujas todo
+    todos.splice(foundIndex, 1, updatingTodo); // užkeičiamas atnaujintas todo
     res.send(updatingTodo);
   } else {
     res.status(404).send({ message: 'Todo not found' });
   }
 });
-
-app.listen(port, () => console.log(`server on port ${port}...`));
+app.listen(port, () => console.log(`Server started on port ${port}...`));
 
 // extensions kaireje puseje. rasome prittier ir instaliuojame code formate
