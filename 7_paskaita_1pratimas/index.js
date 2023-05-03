@@ -9,56 +9,56 @@ const app = express(); //  aplikacijos sukurimas
 app.use(express.json());
 app.use(cors());
 
-const greetings = [];
+const posts = [];
 
-app.get('/greetings', (req, res) => {
-  res.send(greetings);
+app.get('/posts', (req, res) => {
+  res.send(posts);
 });
 
 // {id, title, done}
-app.post('/greetings', (req, res) => {
-  const greeting = req.body;
-  const newGreeting = { id: greetings.length + 1, ...greeting }; // pridedamas id prie siunčiamo obj
-  greetings.push(newGreeting); // pridedama į masyvą
-  res.send(newGreeting); // išsiunčiamas response
+app.post('/posts', (req, res) => {
+  const post = req.body;
+  const newPost = { id: posts.length + 1, ...post }; // pridedamas id prie siunčiamo obj
+  posts.push(newPost); // pridedama į masyvą
+  res.send(newPost); // išsiunčiamas response
 });
 
-app.get('/greetings/:id', (req, res) => {
+app.get('/posts/:id', (req, res) => {
   const id = +req.params.id;
   // randa{...}jei ne undefined
-  const foundGreeting = greetings.find((greeting) => greeting.id === id);
-  if (foundGreeting) {
+  const foundPost = posts.find((post) => post.id === id);
+  if (foundPost) {
     // jeigu randa
-    res.send(foundGreeting);
+    res.send(foundPost);
   } else {
     // jeigu neranda - 404 not found
     // res.status() - grąžina statusą
     res.status(404).send({ message: 'Greeting not found' }); // grazina statusa
   }
 });
-app.delete('/greetings/:id', (req, res) => {
+app.delete('/posts/:id', (req, res) => {
   const id = +req.params.id;
   // randa0-begalybės,neranda-1
-  const foundIndex = greetings.findIndex((greeting) => greeting.id === id);
+  const foundIndex = posts.findIndex((post) => post.id === id);
   if (foundIndex !== -1) {
     // jeigu randa
-    const deletingGreeting = greetings.find((todo) => todo.id === id);
-    greetings.splice(foundIndex, 1);
-    res.send(deletingGreeting); // grąžinam elementą kurį trinam
+    const deletingPost = posts.find((post) => post.id === id);
+    posts.splice(foundIndex, 1);
+    res.send(deletingPost); // grąžinam elementą kurį trinam
   } else {
     // jeigu neranda
     res.status(404).send({ message: 'Greeting not found' });
   }
 });
 
-app.put('/greetings/:id', (req, res) => {
+app.put('/posts/:id', (req, res) => {
   const id = +req.params.id;
-  const foundIndex = greetings.findIndex((greeting) => greeting.id === id);
+  const foundIndex = posts.findIndex((post) => post.id === id);
   if (foundIndex !== -1) {
-    const greeting = req.body; // naujai siunčiamas todo
-    const updatingGreeting = { id, ...greeting }; // senas id + naujas todo
-    greetings.splice(foundIndex, 1, updatingGreeting); // užkeičiamas atnaujintas todo
-    res.send(updatingGreeting);
+    const post = req.body; // naujai siunčiamas todo
+    const updatingPost = { id, ...post }; // senas id + naujas todo
+    posts.splice(foundIndex, 1, updatingPost); // užkeičiamas atnaujintas todo
+    res.send(updatingPost);
   } else {
     res.status(404).send({ message: 'Todo not found' });
   }
