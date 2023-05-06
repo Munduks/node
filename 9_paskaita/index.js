@@ -9,7 +9,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const port = process.env.PORT || 8080;
@@ -24,12 +24,12 @@ app.use(cors());
 const client = new MongoClient(URI); // MongoDB instance
 
 // async funkcija, kad galėtume naudoti await prisijungiat prie DB
-app.get('/Restaurants', async (req, res) => {
+app.get('/movies', async (req, res) => {
   try {
     const con = await client.connect(); // prisijungiame prie duomenų bazės
     const data = await con
       .db('manoDuomenuBaze')
-      .collection('Restaurants')
+      .collection('Movies')
       .find()
       .toArray(); // išsitraukiame duomenis iš duomenų bazęs
     await con.close(); // uždarom prisijungimą prie duomenų bazės
@@ -40,14 +40,32 @@ app.get('/Restaurants', async (req, res) => {
   }
 });
 
-app.post('/Restaurants', async (req, res) => {
+app.get('/movies/:id', async (req, res) => {
   try {
-    const restaurant = req.body;
+    //destrukcija is objekto
+    const { id } = req.params;
+    const con = await client.connect(); // prisijungiame prie duomenų bazės
+    const data = await con
+      .db('manoDuomenuBaze')
+      .collection('Movies')
+      .findOne(new ObjectId(id)); //suranda viena objekta duomenu bazeje
+    // butinai importuoti ObjectId iš mongodb
+    await con.close(); // uždarom prisijungimą prie duomenų bazės
+    res.send(data);
+  } catch (error) {
+    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
+    res.status(500).send(error);
+  }
+});
+
+app.post('/movies', async (req, res) => {
+  try {
+    const movie = req.body;
     const con = await client.connect();
     const data = await con
       .db('manoDuomenuBaze')
       .collection('Movies')
-      .insertOne(restaurant); // prideda vieną objektą
+      .insertOne(movie); // prideda vieną objektą
     await con.close();
     res.send(data);
   } catch (error) {

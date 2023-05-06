@@ -24,12 +24,12 @@ app.use(cors());
 const client = new MongoClient(URI); // MongoDB instance
 
 // async funkcija, kad galėtume naudoti await prisijungiat prie DB
-app.get('/', async (req, res) => {
+app.get('/movies', async (req, res) => {
   try {
     const con = await client.connect(); // prisijungiame prie duomenų bazės
     const data = await con
-      .db('car_management')
-      .collection('cars')
+      .db('manoDuomenuBaze')
+      .collection('Movies')
       .find()
       .toArray(); // išsitraukiame duomenis iš duomenų bazęs
     await con.close(); // uždarom prisijungimą prie duomenų bazės
@@ -40,28 +40,14 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.post('/', async (req, res) => {
+app.post('/movies', async (req, res) => {
   try {
-    const car = req.body;
+    const movie = req.body;
     const con = await client.connect();
     const data = await con
-      .db('car_management')
-      .collection('cars')
-      .insertOne(car); // prideda vieną objektą
-    await con.close();
-    res.send(data);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-app.post('/audi', async (req, res) => {
-  try {
-    const con = await client.connect();
-    const data = await con
-      .db('car_management')
-      .collection('cars')
-      .insertOne({ brand: 'Audi', model: 'A4' }); // prideda vieną objektą
+      .db('manoDuomenuBaze')
+      .collection('Movies')
+      .insertOne(movie); // prideda vieną objektą
     await con.close();
     res.send(data);
   } catch (error) {
