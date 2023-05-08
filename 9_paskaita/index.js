@@ -9,7 +9,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb'); // butinai inportuoti is mongodb
 require('dotenv').config();
 
 const port = process.env.PORT || 8080;
@@ -28,7 +28,7 @@ app.get('/movies', async (req, res) => {
   try {
     const con = await client.connect(); // prisijungiame prie duomenų bazės
     const data = await con
-      .db('manoDuomenuBaze')
+      .db('ManoDuomenuBaze')
       .collection('Movies')
       .find()
       .toArray(); // išsitraukiame duomenis iš duomenų bazęs
@@ -39,16 +39,57 @@ app.get('/movies', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
+// istraukimas pagal id
 app.get('/movies/:id', async (req, res) => {
   try {
-    //destrukcija is objekto
+    // destrukcija is objekto const id
     const { id } = req.params;
     const con = await client.connect(); // prisijungiame prie duomenų bazės
     const data = await con
-      .db('manoDuomenuBaze')
+      .db('ManoDuomenuBaze')
       .collection('Movies')
-      .findOne(new ObjectId(id)); //suranda viena objekta duomenu bazeje
+      .findOne(new ObjectId(id)); // suranda viena objekta duomenu bazeje
+    // butinai importuoti ObjectId iš mongodb
+    await con.close(); // uždarom prisijungimą prie duomenų bazės
+    res.send(data);
+  } catch (error) {
+    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
+    res.status(500).send(error);
+  }
+});
+
+app.get('/movies/genre/:title', async (req, res) => {
+  try {
+    // destrukcija is objekto const id
+    const { title } = req.params;
+    const con = await client.connect(); // prisijungiame prie duomenų bazės
+    const data = await con
+      .db('ManoDuomenuBaze')
+      .collection('Movies')
+      .find({ genre: title }) // istraukia pagal tam tikra lauka pvz:genre
+      .toArray();
+    // butinai importuoti ObjectId iš mongodb
+    await con.close(); // uždarom prisijungimą prie duomenų bazės
+    res.send(data);
+  } catch (error) {
+    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
+    res.status(500).send(error);
+  }
+});
+// asc- ascending - didejimo tvarka 1
+// dsc - descending - mazejimo tvarka -1
+app.get('/movies/ratingSort/:type', async (req, res) => {
+  try {
+    // destrukcija is objekto const id. Sort tik didejimo arba mazejimo tvarka
+    const { type } = req.params;
+    const sort = type === 'asc' ? 1 : -1;
+    const con = await client.connect(); // prisijungiame prie duomenų bazės
+    const data = await con
+      .db('ManoDuomenuBaze')
+      .collection('Movies')
+      .find()
+      .sort({ rating: sort }) // sortina pagal didejimo mazejimo tvarka
+      .toArray();
     // butinai importuoti ObjectId iš mongodb
     await con.close(); // uždarom prisijungimą prie duomenų bazės
     res.send(data);
