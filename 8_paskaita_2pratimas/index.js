@@ -13,6 +13,8 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const port = process.env.PORT || 8080;
+// const URI =
+//   'mongodb+srv://raimondastonkute:Munduks5522.@cluster0.epyr3cq.mongodb.net/?retryWrites=true&w=majority';
 const URI = process.env.DB_CONNECTION_STRING;
 // Prisijungimo prie mūsų DB linkas
 // galima rasti mongodb.com ant klasterio "Connect" mygtukas ir Drivers skiltis
@@ -28,7 +30,7 @@ app.get('/movies', async (req, res) => {
   try {
     const con = await client.connect(); // prisijungiame prie duomenų bazės
     const data = await con
-      .db('manoDuomenuBaze')
+      .db('ManoDuomenuBaze')
       .collection('Movies')
       .find()
       .toArray(); // išsitraukiame duomenis iš duomenų bazęs
@@ -39,15 +41,31 @@ app.get('/movies', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
 app.post('/movies', async (req, res) => {
   try {
     const movie = req.body;
     const con = await client.connect();
     const data = await con
-      .db('manoDuomenuBaze')
+      .db('ManoDuomenuBaze')
       .collection('Movies')
       .insertOne(movie); // prideda vieną objektą
+    await con.close();
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.post('/elgeta', async (req, res) => {
+  try {
+    const con = await client.connect();
+    const data = await con.db('car_management').collection('cars').insertOne({
+      title: 'Elgeta',
+      director: 'Paulius Tautkus',
+      genre: 'siaubo',
+      release_year: 1999,
+      rating: 3.3,
+    }); // prideda vieną objektą
     await con.close();
     res.send(data);
   } catch (error) {

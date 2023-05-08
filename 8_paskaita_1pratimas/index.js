@@ -13,6 +13,8 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const port = process.env.PORT || 8080;
+// const URI =
+//   'mongodb+srv://raimondastonkute:Munduks5522.@cluster0.epyr3cq.mongodb.net/?retryWrites=true&w=majority';
 const URI = process.env.DB_CONNECTION_STRING;
 // Prisijungimo prie mūsų DB linkas
 // galima rasti mongodb.com ant klasterio "Connect" mygtukas ir Drivers skiltis
@@ -24,12 +26,12 @@ app.use(cors());
 const client = new MongoClient(URI); // MongoDB instance
 
 // async funkcija, kad galėtume naudoti await prisijungiat prie DB
-app.get('/', async (req, res) => {
+app.get('/restaurants', async (req, res) => {
   try {
     const con = await client.connect(); // prisijungiame prie duomenų bazės
     const data = await con
-      .db('car_management')
-      .collection('cars')
+      .db('ManoDuomenuBaze')
+      .collection('Restaurants')
       .find()
       .toArray(); // išsitraukiame duomenis iš duomenų bazęs
     await con.close(); // uždarom prisijungimą prie duomenų bazės
@@ -39,15 +41,14 @@ app.get('/', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-app.post('/', async (req, res) => {
+app.post('/restaurants', async (req, res) => {
   try {
-    const car = req.body;
+    const restaurant = req.body;
     const con = await client.connect();
     const data = await con
-      .db('car_management')
-      .collection('cars')
-      .insertOne(car); // prideda vieną objektą
+      .db('ManoDuomenuBaze')
+      .collection('Restaurants')
+      .insertOne(restaurant); // prideda vieną objektą
     await con.close();
     res.send(data);
   } catch (error) {
@@ -55,13 +56,19 @@ app.post('/', async (req, res) => {
   }
 });
 
-app.post('/audi', async (req, res) => {
+app.post('/abudu', async (req, res) => {
   try {
     const con = await client.connect();
     const data = await con
-      .db('car_management')
-      .collection('cars')
-      .insertOne({ brand: 'Audi', model: 'A4' }); // prideda vieną objektą
+      .db('ManoDuomenuBaze')
+      .collection('Restaurants')
+      .insertOne({
+        name: 'abudu',
+        address: 'Tiltų g. 11',
+        city: 'Jonava',
+        rating: 4,
+        cuisine: 'Lietuviška',
+      }); // prideda vieną objektą
     await con.close();
     res.send(data);
   } catch (error) {
