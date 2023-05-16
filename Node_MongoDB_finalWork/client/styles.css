@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+}
+header,
+main, 
+footer
+{
+margin: 0 20px;
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    height: 50px; 
+}
+
+nav a {
+    padding: 0 30px;
+    text-decoration: none;
+    color:darkgray;
+    font-size: 2vw;
+}
+main {
+    background-color: rgb(225, 241, 255);
+    min-height:85vh;
+}
+
+footer{
+background-color:rgb(225, 241, 255) ;
+padding-bottom: 20px;
+
+}
+.crPossition{
+text-align: center;
+margin: 0 ;
+}

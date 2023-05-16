@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="membership.css">
+    
+    <title> </title>
+</head>
+<body>
+    <header>
+        <nav>
+             <a href="membership.html" id="linkColor">Memberships</a> 
+            <a href="user.html">Users</a>    
+        </nav>
+
+    </header>
+    <main>
+        <div class="textStyle"> 
+                <h2>Create Membership</h2> 
+        </div>
+
+        <div class="formPlace">
+            <div class="formStyle">
+              <form action="">
+                <div class="form-row">
+                    <label for="name">Name</label>
+                    <input type="name" id="name" placeholder="Name" name="name" required>
+                  </div>
+                  <div class="form-row">
+                    <label for="membershipPrice">Membership Price:</label>
+                    <input type="number" id="membershipPrice" name="membershipPrice" placeholder="$ Membership Price" required>
+                  </div>
+                  <div class="form-row">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                  </div>
+            </form> 
+            <div class="btnPlace">
+             <a href="#"  class="buttonStyle" id="btnNoStyle">Cancel</a>
+                <a href="membership.html" class="buttonStyle">New Membership</a>
+            </div>
+            
+
+        </div>
+    </main>
+    <footer>
+        <p class="crPossition">Copyright © 2021 Membership Manager</p>
+    </footer>
+
+   <script src="script.js"></script>
+</body>
+</html>

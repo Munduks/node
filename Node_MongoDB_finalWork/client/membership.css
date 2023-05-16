@@ -1,0 +1,103 @@
+
+body {
+    margin: 0;
+}
+
+header,
+main, 
+footer
+{
+margin: 0 20px;
+}
+#linkColor{
+    color: rgb(55, 0, 255);
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    height: 50px; 
+}
+nav a {
+    padding: 0 30px;
+    text-decoration: none;
+    font-size: 2vw;
+    color:darkgray;
+}
+main {
+    background-color: rgb(225, 241, 255);
+    min-height:80vh;
+    padding:20px 70px;
+}
+.textStyle{
+    font-family: Arial, sans-serif;
+    font-size: small;
+}  
+h2{
+font-weight: unset;
+margin:0;
+padding: 10px 0;
+}
+#btnNoStyle{
+    background-color: white;
+    color: black;
+}
+.buttonStyle{
+    text-decoration: none;
+    background-color: rgb(138, 138, 250);
+    color: white;
+    padding: 10px;
+    margin: 5px;
+
+}
+span {
+    color: red;
+}
+.alineText{
+    display: flex;
+    flex-direction:row;
+   justify-content: space-between;
+}
+.formPlace{
+   width: auto;
+   height: 60vh;
+    background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    text-align: right;
+}
+
+.form-row label {
+    width: 150px; 
+    font-weight: bold;
+}
+
+.form-row input,
+textarea, option {
+    flex: 1;
+    margin: 10px;
+    padding: 5px;
+    width: 300px;
+}
+.btnPlace {
+    display: flex;
+justify-content:center;
+}
+
+
+
+footer{
+background-color:rgb(225, 241, 255) ;
+padding-bottom: 20px;
+
+}
+.crPossition{
+text-align: center;
+margin: 0;
+}
